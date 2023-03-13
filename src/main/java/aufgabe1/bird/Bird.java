@@ -1,6 +1,8 @@
 package aufgabe1.bird;
 
 import aufgabe1.food.Food;
+import aufgabe1.food.Nut;
+import aufgabe1.food.Water;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,11 +12,11 @@ import java.util.Set;
 
 public class Bird {
 
-    private final List<Food> eaten          = new ArrayList<>();
-    private final Set<Food>  preferredFoods = new HashSet<>();
+    private final List<Food> eaten = new ArrayList<>();
+    private final Set<Food> preferredFoods = new HashSet<>();
 
     private int flownDistance = 0;
-    private int energy        = 0;
+    private int energy = 0;
 
     /**
      * Gibt Name der Klasse als String zurück.
@@ -76,5 +78,31 @@ public class Bird {
      */
     void setEnergy(int energy) {
         this.energy = energy;
+    }
+
+    public boolean addPreferredFood(Nut food) {
+        if (!preferredFoods.contains(food)) {
+            preferredFoods.add(food);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eat(Food food) {
+        if (preferredFoods.contains(food)||food instanceof Water) {
+            eaten.add(food);
+            energy += food.getEnergyContent();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean fly() {
+        if(energy>0){
+            energy--;
+            flownDistance++;
+            return true;
+        }
+        return false;
     }
 }
