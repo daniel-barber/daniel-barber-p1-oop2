@@ -8,23 +8,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 // TODO Klasse, Variablen und alle Methoden generisch machen, sodass Objekt wie folgt instanziiert werden kann: Birdhouse<Woodpecker, Nut> birdhouse = new Birdhouse<>();
-public class Birdhouse {
+public class Birdhouse<GenericBird extends Bird, GenericFood extends Food> {
 
-    Map<Food, Integer> foodToAmountMap = new HashMap<>();
+    Map<GenericFood, Integer> foodToAmountMap = new HashMap<>();
 
-    public void addFood(Food food, int amount) {
+    public void addFood(GenericFood food, int amount) {
         foodToAmountMap.put(food, amount);
     }
 
-    public void feed(Bird bird, Food food) {
+    public void feed(GenericBird bird, GenericFood food) {
         bird.getEaten().add(food);
     }
 
-    public static void feedWater(Bird bird) {
+    public static <GenericBird extends Bird> void feedWater(GenericBird bird) {
         bird.getEaten().add(new Water());
     }
 
-    public Map<Food, Integer> getFoodToAmountMap() {
+    public Map<GenericFood, Integer> getFoodToAmountMap() {
         return foodToAmountMap;
     }
 }
